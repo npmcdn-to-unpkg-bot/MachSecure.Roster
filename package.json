@@ -1,0 +1,52 @@
+{
+  "name": "AWP",
+  "version": "1.0.0",
+  "description": "test",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack-dev-server --content-base app --hot --inline"
+  },
+  "author": "ME",
+  "license": "ISC",
+  "dependencies": {
+    "babel-preset-es2015": "*",
+    "bootstrap": "*",
+    "font-awesome": "*",
+    "gridstack": "^0.2.5",
+    "jquery": "*",
+    "jquery-ui": "^1.12.0",
+    "lodash": "^4.13.1",
+    "moment": "*",
+    "sweetalert": "*",
+    "toastr": "*"
+  },
+  "devDependencies": {
+    "angular": "*",
+    "angular-loading-bar": "*",
+    "angular-ui-router": "*",
+    "babel-core": "*",
+    "babel-loader": "*",
+    "css-loader": "*",
+    "extract-text-webpack-plugin": "*",
+    "file-loader": "*",
+    "font-awesome-webpack": "*",
+    "gulp": "*",
+    "gulp-util": "^*",
+    "jshint": "*",
+    "jshint-loader": "*",
+    "json-loader": "*",
+    "less": "*",
+    "loader-utils": "*",
+    "ng-annotate-loader": "*",
+    "node-sass": "*",
+    "raw-loader": "*",
+    "sass-loader": "*",
+    "source-map": "*",
+    "style-loader": "*",
+    "tether": "*",
+    "url-loader": "*",
+    "webpack": "*",
+    "webpack-dev-server": "*"
+  }
+}

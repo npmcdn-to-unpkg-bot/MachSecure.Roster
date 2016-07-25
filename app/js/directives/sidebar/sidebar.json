@@ -1,0 +1,24 @@
+{
+  "1": {
+    "display": "Home",
+    "name": "Home",
+    "url": "/",
+    "template": "require('../../html/views/home.html')",
+    "controller": "require('../controllers/home.js')",
+    "controllerAs": "vm"
+  },
+  "3": {
+    "display": "About",
+    "name": "About",
+    "url": "/about",
+    "template": "require('../../html/views/about.html')"
+  },
+  "2": {
+    "display": "Contact",
+    "name": "Contact",
+    "url": "/contact",
+    "template": "require('../../html/views/contact.html')"
+  }
+}
+
+

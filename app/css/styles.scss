@@ -1,0 +1,60 @@
+@import './bootstrap.css';
+@import './dashboard.css';
+@import './skin-blue.css';
+@import './toastr.css';
+@import './loading-bar.css';
+@import './sweetalert.css';
+//@import '../../node_modules/gridstack/dist/gridstack.min.js';
+
+body{
+  background: rgb(226, 232, 233);
+}
+
+.grid-item {
+	background-color: whitesmoke;
+	height: 125px;
+	width: 125px;
+	margin-bottom: 10px;
+}
+//	Width and Height for grid items are wordked out by (125 x n) + 10(n - 1), n being the size increment
+.grid-item--width2 {
+	width: 260px;
+}
+
+.grid-item--height2 {
+	height: 260px;
+}
+
+#loading-bar .bar {
+  background: #2c3e50;
+}
+#loading-bar .peg {
+  box-shadow: 0 0 10px #2c3e50, 0 0 5px #2c3e50;
+}
+#loading-bar-spinner .spinner-icon {
+  border-top-color:  #2c3e50;
+  border-left-color: #2c3e50;
+}
+
+#content-wrapper {
+  width: 100%;
+  height: auto;
+  margin-left: 230px;
+  padding: 10px;
+  padding-top: 2%;
+}
+
+#logo {
+  width: 75px;
+}
+
+.login-inputs {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+}
+
+.pointer{
+  cursor: pointer;
+}
