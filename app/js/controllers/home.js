@@ -1,8 +1,10 @@
-module.exports = (common) => {
+module.exports = function ($scope, $location, $rootScope, common, datacontext) {
 
     var log = common.logger;
     var vm = this;
     activate();
+	vm.myRosterLogo = require('../../img/myRoster.png');
+	console.log(vm);
 
 	var $homeGrid = $(".grid").masonry({
         itemSelector: '.grid-item',
