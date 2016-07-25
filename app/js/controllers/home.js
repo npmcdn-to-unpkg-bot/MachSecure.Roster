@@ -7,7 +7,8 @@ module.exports = (common) => {
 	var $homeGrid = $(".grid").masonry({
         itemSelector: '.grid-item',
 		gutter: 10,
-		stagger: 20
+		stagger: 20,
+		fitWidth: true
     });
 
 	//$homeGrid.masonry('prepended', <div></div>');
