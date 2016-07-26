@@ -32,25 +32,50 @@ body{
 }
 
 .grid-icon{
-	text-align: center;
-	//height: 100px;
+	height: 100px;
 	width: 100%;
-	margin: 18px auto;
-	//color: #00c0ef;
+	text-align: center;
 }
 
-.grid-icon > .grid-title {
+.grid-icon > i {
+	margin: 10px auto;
+}
+
+.grid-title {
 	text-align: center;
-	width: 100%;
-	margin: 5px auto;
-	//color: black;
+	height: 25px;
+	width: 80%;
+	margin-left: 10%;
 }
 //	Width and Height for grid items are worked out by (125 x n) + 10(n - 1), n being the size increment
-.grid-item--width2 {
+.grid-item-2x {
 	width: 260px;
 }
 
-.grid-item--height2 {
+.grid-item-2x > .grid-item-2x-icon {
+	width: 120px;
+	padding-left: 10px;
+	padding-right: 10px;
+	height: 100%;
+	float: left;
+}
+
+.grid-item-2x > .grid-item-2x-details {
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.grid-item-2x-details > h4 {
+	margin: 0;
+}
+
+.grid-item-2x-details > p {
+	margin: 0;
+}
+
+.grid-item-2y {
 	height: 260px;
 }
 
