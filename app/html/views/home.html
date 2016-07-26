@@ -12,17 +12,15 @@
 				<div class="grid-title">Admin Screen</div>
 			</div>
 		</div>
-		<div class="grid-item grid-item-2x grid-item-2y my-details">
-			<div style="width: 100%; height: 100px; margin: 0 auto;">
-				<div style="width: 100px; float: left;">
-					<div class="grid-icon">
-						<i class="fa fa-user fa-2x"></i>
-						<div class="grid-title">My Details</div>
-					</div>
+		<div class="grid-item grid-item-2x2y my-details">
+			<div class="grid-item-2x2y-icon">
+				<div class="grid-icon">
+					<i class="fa fa-user fa-4x"></i>
+					<div class="grid-title">My Details</div>
 				</div>
-				<div style="width: 150px; float: right; transform: translateY(30px)">
-					<h4>System Admin</h4>
-				</div>
+			</div>
+			<div class="grid-item-2x2y-details">
+				<h4>System Admin</h4>
 			</div>
 			<div class="col-md-12">
 				<p class="grid-detail">
@@ -37,10 +35,10 @@
 					Lieu Time:
 					<span>0/-0 Hours</span>
 				</p>
-					<p class="grid-detail">
-						Paid Leave:
-						<span>256/256 Hours</span>
-					</p>
+				<p class="grid-detail">
+					Paid Leave:
+					<span>256/256 Hours</span>
+				</p>
 			</div>
 		</div>
 		<div class="grid-item my-roster">
@@ -59,6 +57,12 @@
 			<div class="grid-icon">
 				<i class="fa fa-clock-o fa-4x"></i>
 				<div class="grid-title">Timesheets</div>
+			</div>
+		</div>
+		<div class="grid-item roster-changes">
+			<div class="grid-icon">
+				<i class="fa fa-calendar-minus-o fa-4x"></i>
+				<div class="grid-title">Roster Changes</div>
 			</div>
 		</div>
 		<div class="grid-item grid-item-2x staff-shift-swap-requests">
@@ -93,12 +97,6 @@
 			<div class="grid-item-2x-details">
 				<p>999 Due on Site</p>
 				<p>999 Late</p>
-			</div>
-		</div>
-		<div class="grid-item roster-changes">
-			<div class="grid-icon">
-				<i class="fa fa-calendar-minus-o fa-4x"></i>
-				<div class="grid-title">Roster Changes</div>
 			</div>
 		</div>
 		<div class="grid-item grid-item-2x clockings">
@@ -141,6 +139,12 @@
 				<div class="grid-title">Admin Message Board</div>
 			</div>
 		</div>
+		<div class="grid-item budget-data">
+			<div class="grid-icon">
+				<i class="fa fa-bar-chart fa-4x"></i>
+				<div class="grid-title">Budget Data</div>
+			</div>
+		</div>
 		<div class="grid-item grid-item-2x staff-requests">
 			<div class="grid-item-2x-icon">
 				<div class="grid-icon">
@@ -165,12 +169,6 @@
 			</div>
 			<div class="grid-item-2x-details">
 				<p>999 Days</p>
-			</div>
-		</div>
-		<div class="grid-item budget-data">
-			<div class="grid-icon">
-				<i class="fa fa-bar-chart fa-4x"></i>
-				<div class="grid-title">Budget Data</div>
 			</div>
 		</div>
 		<div class="grid-item grid-item-2x agency-search">
@@ -202,6 +200,110 @@
 			<div class="grid-icon">
 				<i class="fa fa-bar-chart fa-4x"></i>
 				<div class="grid-title">My Absences</div>
+			</div>
+		</div>
+		<div class="grid-item my-team-roster">
+			<div class="grid-icon">
+				<i class="fa fa-bar-chart fa-4x"></i>
+				<div class="grid-title">My Team Roster</div>
+			</div>
+		</div>
+		<div class="grid-item grid-item-2x my-annualised-hours">
+			<div class="grid-item-2x-icon">
+				<div class="grid-icon">
+					<i class="fa fa-calendar fa-3x"></i>
+					<div class="grid-title">My Annualised Hours</div>
+				</div>
+			</div>
+			<div class="grid-item-2x-details">
+				<p>999 Hours Worked</p>
+			</div>
+		</div>
+		<div class="grid-item grid-item-2x my-leave">
+			<div class="grid-item-2x-icon">
+				<div class="grid-icon">
+					<i class="fa fa-calendar fa-4x"></i>
+					<div class="grid-title">My Leave</div>
+				</div>
+			</div>
+			<div class="grid-item-2x-details">
+				<p>999 Requests for Approval</p>
+			</div>
+		</div>
+		<div class="grid-item grid-item-2x2y change-password">
+			<div class="grid-item-2x2y-icon">
+				<div class="grid-icon">
+					<i class="fa fa-user fa-2x"></i>
+					<div class="grid-title">Change Password</div>
+				</div>
+			</div>
+			<div class="grid-item-2x2y-body">
+				<div class="col-xs-12">
+					<div class="col-xs-5">Current Password:</div>
+					<div class="col-xs-7"><input class="form-control" type="password" /></div>
+				</div>
+				<div class="col-xs-12">
+					<div class="col-xs-5">New Password:</div>
+					<div class="col-xs-7"><input class="form-control" type="password" /></div>
+				</div>
+				<div class="col-xs-12">
+					<div class="col-xs-5">Confirm Password:</div>
+					<div class="col-xs-7"><input class="form-control" type="password" /></div>
+				</div>
+				<div class="col-xs-12">
+					<div class="col-xs-offset-7"><input class="btn" type="submit" value="Update" /></div>
+				</div>
+			</div>
+		</div>
+		<div class="grid-item grid-item-2x recent-messages">
+			<div class="grid-item-2x-icon">
+				<div class="grid-icon">
+					<i class="fa fa-calendar fa-4x"></i>
+					<div class="grid-title">Recent Messages</div>
+				</div>
+			</div>
+			<div class="grid-item-2x-details">
+				<p>999 Recent Messages</p>
+			</div>
+		</div>
+		<div class="grid-item my-shift-swap-requests">
+			<div class="grid-icon">
+				<i class="fa fa-bar-chart fa-3x"></i>
+				<div class="grid-title">My Shift Swap Requests</div>
+			</div>
+		</div>
+		<div class="grid-item my-personal-details">
+			<div class="grid-icon">
+				<i class="fa fa-bar-chart fa-4x"></i>
+				<div class="grid-title">My Personal Details</div>
+			</div>
+		</div>
+		<div class="grid-item grid-item-2x my-locations">
+			<div class="grid-item-2x-icon">
+				<div class="grid-icon">
+					<i class="fa fa-calendar fa-4x"></i>
+					<div class="grid-title">My Locations</div>
+				</div>
+			</div>
+			<div class="grid-item-2x-details">
+				<p>Long Location Name</p>
+			</div>
+		</div>
+		<div class="grid-item grid-item-2x my-availabilites">
+			<div class="grid-item-2x-icon">
+				<div class="grid-icon">
+					<i class="fa fa-calendar fa-4x"></i>
+					<div class="grid-title">My Availabilities</div>
+				</div>
+			</div>
+			<div class="grid-item-2x-details">
+				<p>999 Days</p>
+			</div>
+		</div>
+		<div class="grid-item my-payslip">
+			<div class="grid-icon">
+				<i class="fa fa-bar-chart fa-4x"></i>
+				<div class="grid-title">My Payslip</div>
 			</div>
 		</div>
 	</div>

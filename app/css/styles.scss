@@ -79,6 +79,39 @@ body{
 	height: 260px;
 }
 
+.grid-item-2x2y {
+	width: 260px;
+	height: 260px;
+}
+
+.grid-item-2x2y > .grid-item-2x2y-icon {
+	width: 120px;
+	padding-left: 10px;
+	padding-right: 10px;
+	height: 100px;
+	float: left;
+}
+
+.grid-item-2x2y > .grid-item-2x2y-details {
+	height: 100px;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.grid-item-2x2y-details > h4 {
+	margin: 0;
+}
+
+.grid-item-2x2y-details > p {
+	margin: 0;
+}
+
+.grid-item-2x2y > .grid-item-2x2y-body {
+	height: 150px;
+	width: 100%;
+}
+
 #loading-bar .bar {
   background: #2c3e50;
 }
