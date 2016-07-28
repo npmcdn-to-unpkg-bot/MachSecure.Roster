@@ -422,7 +422,6 @@ module.exports = function ($scope, $location, $rootScope, common, datacontext, $
 	}
 
 	vm.unpinTile = function(rowID, $event){
-		//vm.pinnedTiles[rowID].isPinned = true;
 		var tile = vm.pinnedTiles[rowID];
 		vm.homeTiles[tile.tileKey].isPinned = false;
 		$("." + tile.tileClass).addClass("grid-item");
@@ -430,7 +429,6 @@ module.exports = function ($scope, $location, $rootScope, common, datacontext, $
 		$timeout(function(){
 			$pinnedGrid.masonry("remove", $("." + tile.tileClass + ".pinned")).masonry("layout");
 			$homeGrid.masonry("layout");
-			console.log(vm.pinnedTiles);
 		}, 0);
 	}
 	
