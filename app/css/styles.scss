@@ -20,6 +20,48 @@ body{
 	border-radius: 15px;
 }
 
+.grid-item > .inner-grid {
+	width: 100%;
+	height: 100%;
+}
+
+.grid-item-selectable {
+	cursor: pointer;
+}
+
+.grid-pin.pin {
+	-ms-transform: rotate(45deg);
+	-webkit-transform: rotate(45deg);
+	transform: rotate(45deg);
+	z-index: 2;
+	right: 10px;
+	top: 10px;
+	display: none;
+	position: absolute;
+	color: red;
+	cursor: pointer;
+}
+
+.grid-pin.unpin {
+	z-index: 2;
+	right: 5px;
+	top: 5px;
+	display: none;
+	position: absolute;
+	cursor: pointer;
+}
+
+.grid-pin.unpin > .fa-thumb-tack {
+	-ms-transform: rotate(45deg);
+	-webkit-transform: rotate(45deg);
+	transform: rotate(45deg);
+	color: black;
+}
+
+.grid-item:hover > .grid-pin {
+	display: block;
+}
+
 .grid-detail {
 	display: block;
 	margin: 10px;
@@ -31,8 +73,8 @@ body{
 	margin-left: 10px;
 }
 
-.grid-icon{
-	height: 100px;
+.grid-icon {
+	height: 100%;
 	width: 100%;
 	text-align: center;
 }
@@ -52,7 +94,7 @@ body{
 	width: 260px;
 }
 
-.grid-item-2x > .grid-item-2x-icon {
+.grid-item-2x-icon {
 	width: 120px;
 	padding-left: 10px;
 	padding-right: 10px;
@@ -60,7 +102,7 @@ body{
 	float: left;
 }
 
-.grid-item-2x > .grid-item-2x-details {
+.grid-item-2x-details {
 	height: 100%;
 	display: flex;
 	justify-content: center;
@@ -84,7 +126,7 @@ body{
 	height: 260px;
 }
 
-.grid-item-2x2y > .grid-item-2x2y-icon {
+.grid-item-2x2y-icon {
 	width: 120px;
 	padding-left: 10px;
 	padding-right: 10px;
@@ -92,7 +134,7 @@ body{
 	float: left;
 }
 
-.grid-item-2x2y > .grid-item-2x2y-details {
+.grid-item-2x2y-details {
 	height: 100px;
 	display: flex;
 	justify-content: center;
@@ -107,7 +149,7 @@ body{
 	margin: 0;
 }
 
-.grid-item-2x2y > .grid-item-2x2y-body {
+.grid-item-2x2y-body {
 	height: 150px;
 	width: 100%;
 }

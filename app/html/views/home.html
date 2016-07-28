@@ -1,309 +1,96 @@
-<div class="col-md-10 col-md-offset-1">
-	<div class="grid" style="width: 100%; margin: 0 auto;">
-		<div class="grid-item roster">
-			<div class="grid-icon">
-				<i class="fa fa-calendar fa-4x"></i>
-				<div class="grid-title">Roster</div>
-			</div>
-		</div>
-		<div class="grid-item admin-screen">
-			<div class="grid-icon">
-				<i class="fa fa-columns fa-4x"></i>
-				<div class="grid-title">Admin Screen</div>
-			</div>
-		</div>
-		<div class="grid-item grid-item-2x2y my-details">
-			<div class="grid-item-2x2y-icon">
-				<div class="grid-icon">
-					<i class="fa fa-user fa-4x"></i>
-					<div class="grid-title">My Details</div>
+<div class="row">
+	<div class="col-md-10 col-md-offset-1">
+		<div class="grid-pinned" style="margin: 0 auto;">
+			<div ng-repeat="(rowID, tile) in vm.pinnedTiles" class="grid-item grid-item-{{tile.tileSize}} pinned {{rowID}}" ng-class="[tile.tileClass, {'grid-item-selectable': tile.isSelectable}]">
+				<div ng-if="tile.tileSize == '2x2y'" class="inner-grid">
+					<div class="grid-item-2x2y-icon">
+						<div class="grid-icon">
+							<i ng-if="tile.tileIcon != false" class="fa {{tile.tileIcon}} {{tile.tileIconSize}}"></i>
+							<img ng-if="tile.tileImage" ng-src="{{tile.tileImage}}" height="70px" />
+							<div class="grid-title">{{tile.tileName}}</div>
+						</div>
+					</div>
+					<div class="grid-item-2x2y-details">
+						<h4 ng-repeat="heading in tile.tileHeadings">{{heading}}</h4>
+					</div>
+					<div class="col-md-12">
+						<p ng-repeat="(detailTitle, detailValue) in tile.tileDetails" class="grid-detail">
+							{{detailTitle}}
+							<span>{{detailValue}}</span>
+						</p>
+					</div>
 				</div>
-			</div>
-			<div class="grid-item-2x2y-details">
-				<h4>System Admin</h4>
-			</div>
-			<div class="col-md-12">
-				<p class="grid-detail">
-					Email:
-					<span>email@email.co.uk</span>
-				</p>
-				<p class="grid-detail">
-					Mobile:
-					<span>+000000000000</span>
-				</p>
-				<p class="grid-detail">
-					Lieu Time:
-					<span>0/-0 Hours</span>
-				</p>
-				<p class="grid-detail">
-					Paid Leave:
-					<span>256/256 Hours</span>
-				</p>
-			</div>
-		</div>
-		<div class="grid-item my-roster">
-			<div class="grid-icon">
-				<img src="{{vm.myRosterLogo}}" height="70px" />
-				<div class="grid-title">My Roster</div>
-			</div>
-		</div>
-		<div class="grid-item payroll-submission">
-			<div class="grid-icon">
-				<i class="fa fa-money fa-4x"></i>
-				<div class="grid-title">Payroll Submission</div>
-			</div>
-		</div>
-		<div class="grid-item timesheets">
-			<div class="grid-icon">
-				<i class="fa fa-clock-o fa-4x"></i>
-				<div class="grid-title">Timesheets</div>
-			</div>
-		</div>
-		<div class="grid-item roster-changes">
-			<div class="grid-icon">
-				<i class="fa fa-calendar-minus-o fa-4x"></i>
-				<div class="grid-title">Roster Changes</div>
-			</div>
-		</div>
-		<div class="grid-item grid-item-2x staff-shift-swap-requests">
-			<div class="grid-item-2x-icon">
-				<div class="grid-icon">
-					<i class="fa fa-exchange fa-2x"></i>
-					<div class="grid-title">Staff Shift Swap Requests</div>
+				<div ng-if="tile.tileSize == '2x'" class="inner-grid">
+					<div class="grid-item-2x-icon">
+						<div class="grid-icon">
+							<i class="fa {{tile.tileIcon}} {{tile.tileIconSize}}"></i>
+							<div class="grid-title">{{tile.tileName}}</div>
+						</div>
+					</div>
+					<div class="grid-item-2x-details">
+						<p ng-repeat="heading in tile.tileHeadings">{{heading}}</p>
+					</div>
+					<div class="grid-pin pin">
+						<i class="fa fa-thumb-tack fa-fw fa-lg"></i>
+					</div>
 				</div>
-			</div>
-			<div class="grid-item-2x-details">
-				<p>999 Requests need approval</p>
-			</div>
-		</div>
-		<div class="grid-item grid-item-2x unrecognised-messages">
-			<div class="grid-item-2x-icon">
-				<div class="grid-icon">
-					<i class="fa fa-envelope-square fa-4x" style="color: red;"></i>
-					<div class="grid-title">Unrecognised Messages</div>
+				<div ng-if="tile.tileSize == '1x1y'" class="grid-icon">
+					<i ng-if="tile.tileIcon != false" class="fa {{tile.tileIcon}} {{tile.tileIconSize}}"></i>
+					<img ng-if="tile.tileImage" ng-src="{{tile.tileImage}}" height="70px" />
+					<div class="grid-title">{{tile.tileName}}</div>
 				</div>
-			</div>
-			<div class="grid-item-2x-details">
-				<p>999 Messages</p>
-			</div>
-		</div>
-		<div class="grid-item grid-item-2x clockings-by-person">
-			<div class="grid-item-2x-icon">
-				<div class="grid-icon">
-					<i class="fa fa-clock-o fa-4x"></i>
-					<div class="grid-title">Clockings by Person</div>
-				</div>
-			</div>
-			<div class="grid-item-2x-details">
-				<p>999 Due on Site</p>
-				<p>999 Late</p>
-			</div>
-		</div>
-		<div class="grid-item grid-item-2x clockings">
-			<div class="grid-item-2x-icon">
-				<div class="grid-icon">
-					<i class="fa fa-clock-o fa-4x"></i>
-					<div class="grid-title">Clockings</div>
-				</div>
-			</div>
-			<div class="grid-item-2x-details">
-				<p>999 Due on Site</p>
-				<p>999 Late</p>
-			</div>
-		</div>
-		<div class="grid-item grid-item-2x scheduled-rosters">
-			<div class="grid-item-2x-icon">
-				<div class="grid-icon">
-					<i class="fa fa-clock-o fa-4x"></i>
-					<div class="grid-title">Scheduled Rosters</div>
-				</div>
-			</div>
-			<div class="grid-item-2x-details">
-				<p>999 Runs</p>
-			</div>
-		</div>
-		<div class="grid-item grid-item-2x late-staff">
-			<div class="grid-item-2x-icon">
-				<div class="grid-icon">
-					<i class="fa fa-clock-o fa-4x"></i>
-					<div class="grid-title">Late Staff</div>
-				</div>
-			</div>
-			<div class="grid-item-2x-details">
-				<p>999 Late</p>
-			</div>
-		</div>
-		<div class="grid-item admin-message-board">
-			<div class="grid-icon">
-				<i class="fa fa-envelope fa-3x"></i>
-				<div class="grid-title">Admin Message Board</div>
-			</div>
-		</div>
-		<div class="grid-item budget-data">
-			<div class="grid-icon">
-				<i class="fa fa-bar-chart fa-4x"></i>
-				<div class="grid-title">Budget Data</div>
-			</div>
-		</div>
-		<div class="grid-item grid-item-2x staff-requests">
-			<div class="grid-item-2x-icon">
-				<div class="grid-icon">
-					<i class="fa fa-calendar fa-4x"></i>
-					<div class="grid-title">Staff Requests</div>
-				</div>
-			</div>
-			<div class="grid-item-2x-details">
-				<p>999 Leave Requests</p>
-				<p>Next Leave:</p>
-				<p>29/07/2016</p>
-				<p>999 Days</p>
-				<p>Long Name Here</p>
-			</div>
-		</div>
-		<div class="grid-item grid-item-2x demand-data">
-			<div class="grid-item-2x-icon">
-				<div class="grid-icon">
-					<i class="fa fa-calendar fa-4x"></i>
-					<div class="grid-title">Demand Data</div>
-				</div>
-			</div>
-			<div class="grid-item-2x-details">
-				<p>999 Days</p>
-			</div>
-		</div>
-		<div class="grid-item grid-item-2x agency-search">
-			<div class="grid-item-2x-icon">
-				<div class="grid-icon">
-					<i class="fa fa-calendar fa-4x"></i>
-					<div class="grid-title">Agency Search</div>
-				</div>
-			</div>
-			<div class="grid-item-2x-details">
-				<p>999 Searches</p>
-			</div>
-		</div>
-		<div class="grid-item grid-item-2x next-working-day">
-			<div class="grid-item-2x-icon">
-				<div class="grid-icon">
-					<i class="fa fa-calendar fa-4x"></i>
-					<div class="grid-title">Next Shift</div>
-				</div>
-			</div>
-			<div class="grid-item-2x-details">
-				<p>08:30-17:00</p>
-				<p>27 July 2016</p>
-				<p>08:30 - 17:00</p>
-				<p>Long Location Here</p>
-			</div>
-		</div>
-		<div class="grid-item my-absences">
-			<div class="grid-icon">
-				<i class="fa fa-bar-chart fa-4x"></i>
-				<div class="grid-title">My Absences</div>
-			</div>
-		</div>
-		<div class="grid-item my-team-roster">
-			<div class="grid-icon">
-				<i class="fa fa-bar-chart fa-4x"></i>
-				<div class="grid-title">My Team Roster</div>
-			</div>
-		</div>
-		<div class="grid-item grid-item-2x my-annualised-hours">
-			<div class="grid-item-2x-icon">
-				<div class="grid-icon">
-					<i class="fa fa-calendar fa-3x"></i>
-					<div class="grid-title">My Annualised Hours</div>
-				</div>
-			</div>
-			<div class="grid-item-2x-details">
-				<p>999 Hours Worked</p>
-			</div>
-		</div>
-		<div class="grid-item grid-item-2x my-leave">
-			<div class="grid-item-2x-icon">
-				<div class="grid-icon">
-					<i class="fa fa-calendar fa-4x"></i>
-					<div class="grid-title">My Leave</div>
-				</div>
-			</div>
-			<div class="grid-item-2x-details">
-				<p>999 Requests for Approval</p>
-			</div>
-		</div>
-		<div class="grid-item grid-item-2x2y change-password">
-			<div class="grid-item-2x2y-icon">
-				<div class="grid-icon">
-					<i class="fa fa-user fa-2x"></i>
-					<div class="grid-title">Change Password</div>
-				</div>
-			</div>
-			<div class="grid-item-2x2y-body">
-				<div class="col-xs-12">
-					<div class="col-xs-5">Current Password:</div>
-					<div class="col-xs-7"><input class="form-control" type="password" /></div>
-				</div>
-				<div class="col-xs-12">
-					<div class="col-xs-5">New Password:</div>
-					<div class="col-xs-7"><input class="form-control" type="password" /></div>
-				</div>
-				<div class="col-xs-12">
-					<div class="col-xs-5">Confirm Password:</div>
-					<div class="col-xs-7"><input class="form-control" type="password" /></div>
-				</div>
-				<div class="col-xs-12">
-					<div class="col-xs-offset-7"><input class="btn" type="submit" value="Update" /></div>
+				<div class="grid-pin unpin fa-stack fa-lg" ng-click="vm.unpinTile(rowID, $event)">
+					<i class="fa fa-thumb-tack fa-stack-1x"></i>
+					<i class="fa fa-ban fa-stack-2x text-danger"></i>
 				</div>
 			</div>
 		</div>
-		<div class="grid-item grid-item-2x recent-messages">
-			<div class="grid-item-2x-icon">
-				<div class="grid-icon">
-					<i class="fa fa-calendar fa-4x"></i>
-					<div class="grid-title">Recent Messages</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-10 col-md-offset-1">
+		<div class="grid" style="margin: 0 auto;">
+			<div ng-repeat="(rowID, tile) in vm.homeTiles" class="grid-item grid-item-{{tile.tileSize}}" ng-hide="tile.isPinned" ng-class="[tile.tileClass, {'grid-item-selectable': tile.isSelectable}]">
+				<div ng-if="tile.tileSize == '2x2y'" class="inner-grid">
+					<div class="grid-item-2x2y-icon">
+						<div class="grid-icon">
+							<i ng-if="tile.tileIcon != false" class="fa {{tile.tileIcon}} {{tile.tileIconSize}}"></i>
+							<img ng-if="tile.tileImage" ng-src="{{tile.tileImage}}" height="70px" />
+							<div class="grid-title">{{tile.tileName}}</div>
+						</div>
+					</div>
+					<div class="grid-item-2x2y-details">
+						<h4 ng-repeat="heading in tile.tileHeadings">{{heading}}</h4>
+					</div>
+					<div class="col-md-12">
+						<p ng-repeat="(detailTitle, detailValue) in tile.tileDetails" class="grid-detail">
+							{{detailTitle}}
+							<span>{{detailValue}}</span>
+						</p>
+					</div>
 				</div>
-			</div>
-			<div class="grid-item-2x-details">
-				<p>999 Recent Messages</p>
-			</div>
-		</div>
-		<div class="grid-item my-shift-swap-requests">
-			<div class="grid-icon">
-				<i class="fa fa-bar-chart fa-3x"></i>
-				<div class="grid-title">My Shift Swap Requests</div>
-			</div>
-		</div>
-		<div class="grid-item my-personal-details">
-			<div class="grid-icon">
-				<i class="fa fa-bar-chart fa-4x"></i>
-				<div class="grid-title">My Personal Details</div>
-			</div>
-		</div>
-		<div class="grid-item grid-item-2x my-locations">
-			<div class="grid-item-2x-icon">
-				<div class="grid-icon">
-					<i class="fa fa-calendar fa-4x"></i>
-					<div class="grid-title">My Locations</div>
+				<div ng-if="tile.tileSize == '2x'" class="inner-grid">
+					<div class="grid-item-2x-icon">
+						<div class="grid-icon">
+							<i class="fa {{tile.tileIcon}} {{tile.tileIconSize}}"></i>
+							<div class="grid-title">{{tile.tileName}}</div>
+						</div>
+					</div>
+					<div class="grid-item-2x-details">
+						<p ng-repeat="heading in tile.tileHeadings">{{heading}}</p>
+					</div>
+					<div class="grid-pin pin">
+						<i class="fa fa-thumb-tack fa-fw fa-lg"></i>
+					</div>
 				</div>
-			</div>
-			<div class="grid-item-2x-details">
-				<p>Long Location Name</p>
-			</div>
-		</div>
-		<div class="grid-item grid-item-2x my-availabilites">
-			<div class="grid-item-2x-icon">
-				<div class="grid-icon">
-					<i class="fa fa-calendar fa-4x"></i>
-					<div class="grid-title">My Availabilities</div>
+				<div ng-if="tile.tileSize == '1x1y'" class="grid-icon">
+					<i ng-if="tile.tileIcon != false" class="fa {{tile.tileIcon}} {{tile.tileIconSize}}"></i>
+					<img ng-if="tile.tileImage" ng-src="{{tile.tileImage}}" height="70px" />
+					<div class="grid-title">{{tile.tileName}}</div>
 				</div>
-			</div>
-			<div class="grid-item-2x-details">
-				<p>999 Days</p>
-			</div>
-		</div>
-		<div class="grid-item my-payslip">
-			<div class="grid-icon">
-				<i class="fa fa-bar-chart fa-4x"></i>
-				<div class="grid-title">My Payslip</div>
+				<div class="grid-pin pin" ng-click="vm.pinTile(rowID, $event)">
+					<i class="fa fa-thumb-tack fa-fw fa-lg"></i>
+				</div>
 			</div>
 		</div>
 	</div>
