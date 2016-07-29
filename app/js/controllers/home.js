@@ -424,7 +424,6 @@ module.exports = function ($scope, $location, $rootScope, common, datacontext, $
 	}
 
 	vm.toggleRow = function(rowClass){
-		console.log(rowClass);
 		switch(rowClass){
 			case "pinned":
 				if(vm.showPinned == true){
