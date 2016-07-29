@@ -1,5 +1,16 @@
 <div class="row">
-	<div class="col-md-10 col-md-offset-1">
+	<div ng-if="vm.pinnedTiles.length > 0" class="col-md-10 col-md-offset-1">
+		<h1 class="display-2 grid-header">
+			Pinned Tiles
+			<button class="btn" style="float: right;" ng-click="vm.toggleRow('pinned')">
+				<i ng-show="vm.showPinned" class="fa fa-arrow-down"></i>
+				<i ng-hide="vm.showPinned" class="fa fa-arrow-left"></i>
+			</button>
+		</h1>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-10 col-md-offset-1 js-grid-pinned">
 		<div class="grid-pinned" style="margin: 0 auto;">
 			<div ng-repeat="(rowID, tile) in vm.pinnedTiles" class="grid-item grid-item-{{tile.tileSize}} pinned {{rowID}}" ng-class="[tile.tileClass, {'grid-item-selectable': tile.isSelectable}]">
 				<div ng-if="tile.tileSize == '2x2y'" class="inner-grid">
@@ -29,6 +40,10 @@
 					</div>
 					<div class="grid-item-2x-details">
 						<p ng-repeat="heading in tile.tileHeadings">{{heading}}</p>
+						<p ng-repeat="(detailTitle, detailValue) in tile.tileDetails" class="grid-detail">
+							{{detailTitle}}
+							<span class="badge">{{detailValue}}</span>
+						</p>
 					</div>
 					<div class="grid-pin pin">
 						<i class="fa fa-thumb-tack fa-fw fa-lg"></i>
@@ -49,11 +64,17 @@
 </div>
 <div class="row">
 	<div class="col-md-10 col-md-offset-1">
-
+		<h1 class="display-2 grid-header">
+			Self-Service
+			<button class="btn" style="float: right;" ng-click="vm.toggleRow('tiles')">
+				<i ng-show="vm.showTiles" class="fa fa-arrow-down"></i>
+				<i ng-hide="vm.showTiles" class="fa fa-arrow-left"></i>
+			</button>
+		</h1>
 	</div>
 </div>
 <div class="row">
-	<div class="col-md-10 col-md-offset-1">
+	<div class="col-md-10 col-md-offset-1 js-grid-tiles">
 		<div class="grid" style="margin: 0 auto;">
 			<div ng-repeat="(rowID, tile) in vm.homeTiles" class="grid-item grid-item-{{tile.tileSize}}" ng-hide="tile.isPinned" ng-class="[tile.tileClass, {'grid-item-selectable': tile.isSelectable}]">
 				<div ng-if="tile.tileSize == '2x2y'" class="inner-grid">
@@ -83,6 +104,10 @@
 					</div>
 					<div class="grid-item-2x-details">
 						<p ng-repeat="heading in tile.tileHeadings">{{heading}}</p>
+						<p ng-repeat="(detailTitle, detailValue) in tile.tileDetails" class="grid-detail">
+							{{detailTitle}}
+							<span class="badge">{{detailValue}}</span>
+						</p>
 					</div>
 					<div class="grid-pin pin">
 						<i class="fa fa-thumb-tack fa-fw fa-lg"></i>

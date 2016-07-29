@@ -6,6 +6,8 @@ module.exports = function ($scope, $location, $rootScope, common, datacontext, $
 	var $homeGrid;
 	vm.myRosterLogo = require('../../img/myRoster.png');
 	vm.pinnedTiles = [];
+	vm.showPinned = true;
+	vm.showTiles = true;
 	vm.homeTiles = [
 		{
 			"tileID":			0,
@@ -104,9 +106,9 @@ module.exports = function ($scope, $location, $rootScope, common, datacontext, $
 			"tileIcon":			"fa-exchange",
 			"tileIconSize":		"fa-2x",
 			"tileName":			"Staff Shift Swap Requests",
-			"tileHeadings":		[
-				"999 Requests need approval"
-			]
+			"tileDetails":		{
+				"Requests:": 999
+			}
 		},
 		{
 			"tileID":			8,
@@ -118,9 +120,9 @@ module.exports = function ($scope, $location, $rootScope, common, datacontext, $
 			"tileIcon":			"fa-envelope-square fa-4x",
 			"tileIconSize":		"fa-4x",
 			"tileName":			"Unrecognised Messages",
-			"tileHeadings":		[
-				"999 Messages"
-			]
+			"tileDetails":		{
+				"Messages:": 999
+			}
 		},
 		{
 			"tileID":			9,
@@ -132,10 +134,10 @@ module.exports = function ($scope, $location, $rootScope, common, datacontext, $
 			"tileIcon":			"fa-clock-o",
 			"tileIconSize":		"fa-4x",
 			"tileName":			"Clockings by Person",
-			"tileHeadings":		[
-				"999 Due On Site",
-				"999 Late"
-			]
+			"tileDetails":		{
+				"Due:":		999,
+				"Late:":	999
+			}
 		},
 		{
 			"tileID":			10,
@@ -147,10 +149,10 @@ module.exports = function ($scope, $location, $rootScope, common, datacontext, $
 			"tileIcon":			"fa-clock-o",
 			"tileIconSize":		"fa-4x",
 			"tileName":			"Clockings",
-			"tileHeadings":		[
-				"999 Due On Site",
-				"999 Late"
-			]
+			"tileDetails":		{
+				"Due:":	999,
+				"Late:":	999
+			}
 		},
 		{
 			"tileID":			11,
@@ -162,9 +164,9 @@ module.exports = function ($scope, $location, $rootScope, common, datacontext, $
 			"tileIcon":			"fa-clock-o",
 			"tileIconSize":		"fa-4x",
 			"tileName":			"Scheduled Rosters",
-			"tileHeadings":		[
-				"999 Runs"
-			]
+			"tileDetails":		{
+				"Runs:": 999
+			}
 		},
 		{
 			"tileID":			12,
@@ -176,9 +178,9 @@ module.exports = function ($scope, $location, $rootScope, common, datacontext, $
 			"tileIcon":			"fa-clock-o",
 			"tileIconSize":		"fa-4x",
 			"tileName":			"Late Staff",
-			"tileHeadings":		[
-				"999 Late"
-			]
+			"tileDetails":		{
+				"Late:": 999
+			}
 		},
 		{
 			"tileID":			13,
@@ -229,9 +231,9 @@ module.exports = function ($scope, $location, $rootScope, common, datacontext, $
 			"tileIcon":			"fa-calendar",
 			"tileIconSize":		"fa-4x",
 			"tileName":			"Demand Data",
-			"tileHeadings":		[
-				"999 Days"
-			]
+			"tileDetails":		{
+				"Days:": 999
+			}
 		},
 		{
 			"tileID":			17,
@@ -243,9 +245,9 @@ module.exports = function ($scope, $location, $rootScope, common, datacontext, $
 			"tileIcon":			"fa-clock-o",
 			"tileIconSize":		"fa-4x",
 			"tileName":			"Agency Search",
-			"tileHeadings":		[
-				"999 Searches"
-			]
+			"tileDetails":		{
+				"Searches:": 999
+			}
 		},
 		{
 			"tileID":			18,
@@ -296,9 +298,9 @@ module.exports = function ($scope, $location, $rootScope, common, datacontext, $
 			"tileIcon":			"fa-clock-o",
 			"tileIconSize":		"fa-3x",
 			"tileName":			"My Annualised Hours",
-			"tileHeadings":		[
-				"999 Hours Worked"
-			]
+			"tileDetails":		{
+				"Hours:": 999
+			}
 		},
 		{
 			"tileID":			22,
@@ -310,9 +312,9 @@ module.exports = function ($scope, $location, $rootScope, common, datacontext, $
 			"tileIcon":			"fa-calendar",
 			"tileIconSize":		"fa-4x",
 			"tileName":			"My Leave",
-			"tileHeadings":		[
-				"999 Requests for Approval"
-			]
+			"tileDetails":		{
+				"Requests:": 999
+			}
 		},
 		{
 			"tileID":			23,
@@ -346,9 +348,9 @@ module.exports = function ($scope, $location, $rootScope, common, datacontext, $
 			"tileIcon":			"fa-envelope",
 			"tileIconSize":		"fa-4x",
 			"tileName":			"Recent Messages",
-			"tileHeadings":		[
-				"999 Recent Messages"
-			]
+			"tileDetails":		{
+				"Messages:": 999
+			}
 		},
 		{
 			"tileID":			26,
@@ -398,9 +400,9 @@ module.exports = function ($scope, $location, $rootScope, common, datacontext, $
 			"tileIcon":			"fa-calendar",
 			"tileIconSize":		"fa-4x",
 			"tileName":			"My Availabilities",
-			"tileHeadings":		[
-				"999 Days"
-			]
+			"tileDetails":		{
+				"Days:": 999
+			}
 		}
 	];
 
@@ -419,6 +421,30 @@ module.exports = function ($scope, $location, $rootScope, common, datacontext, $
 			$pinnedGrid.masonry("appended", $("." + tile.tileClass + ".pinned")).masonry("layout");
 			$homeGrid.masonry("layout");
 		}, 0);
+	}
+
+	vm.toggleRow = function(rowClass){
+		console.log(rowClass);
+		switch(rowClass){
+			case "pinned":
+				if(vm.showPinned == true){
+					$(".js-grid-pinned").slideUp();
+					vm.showPinned = false;
+				}else{
+					$(".js-grid-pinned").slideDown();
+					vm.showPinned = true;
+				}
+				break;
+			case "tiles":
+				if(vm.showTiles == true){
+					$(".js-grid-tiles").slideUp();
+					vm.showTiles = false;
+				}else{
+					$(".js-grid-tiles").slideDown();
+					vm.showTiles = true;
+				}
+				break;
+		}
 	}
 
 	vm.unpinTile = function(rowID, $event){
