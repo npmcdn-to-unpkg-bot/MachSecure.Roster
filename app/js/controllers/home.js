@@ -1,13 +1,17 @@
-module.exports = function ($scope, $location, $rootScope, common, datacontext, $timeout) {
+module.exports = function ($scope, $location, $rootScope, common, datacontext, $timeout, localstorage) {
 
     var log = common.logger;
     var vm = this;
 	var $pinnedGrid;
 	var $homeGrid;
+	var $reportGrid;
+	var pinned = localstorage.getData("pinned", [], "JSON");
+	var hidden = localstorage.getData("hidden", {pinned: false, tiles: false, reports: false}, "JSON")
 	vm.myRosterLogo = require('../../img/myRoster.png');
 	vm.pinnedTiles = [];
 	vm.showPinned = true;
 	vm.showTiles = true;
+	vm.showReports = true;
 	vm.homeTiles = [
 		{
 			"tileID":			0,
@@ -359,7 +363,7 @@ module.exports = function ($scope, $location, $rootScope, common, datacontext, $
 			"isPinned":			false,
 			"tileClass":		"my-shift-swap-requests",
 			"isSelectable":		true,
-			"tileIcon":			"fa-calendar",
+			"tileIcon":			"fa-exchange",
 			"tileIconSize":		"fa-3x",
 			"tileName":			"My Shift Swap Requests"
 		},
@@ -405,21 +409,154 @@ module.exports = function ($scope, $location, $rootScope, common, datacontext, $
 			}
 		}
 	];
+	vm.reportTiles = [
+		{
+			"tileID":			0,
+			"tileKey":			0,
+			"tileSize":			"1x1y",
+			"isPinned":			false,
+			"tileClass":		"account-wage-analysis-by-person",
+			"isSelectable":		true,
+			"tileIcon":			"fa-columns",
+			"tileIconSize":		"fa-3x",
+			"tileName":			"Account Wage Analysis by Person"
+		},
+		{
+			"tileID":			1,
+			"tileKey":			1,
+			"tileSize":			"1x1y",
+			"isPinned":			false,
+			"tileClass":		"active-users",
+			"isSelectable":		true,
+			"tileIcon":			"fa-columns",
+			"tileIconSize":		"fa-3x",
+			"tileName":			"Active Users"
+		},
+		{
+			"tileID":			2,
+			"tileKey":			2,
+			"tileSize":			"1x1y",
+			"isPinned":			false,
+			"tileClass":		"attendance",
+			"isSelectable":		true,
+			"tileIcon":			"fa-columns",
+			"tileIconSize":		"fa-3x",
+			"tileName":			"Attendance"
+		},
+		{
+			"tileID":			3,
+			"tileKey":			3,
+			"isPinned":			false,
+			"tileSize":			"1x1y",
+			"tileClass":		"contracted-hours",
+			"isSelectable":		true,
+			"tileIcon":			"fa-columns",
+			"tileIconSize":		"fa-3x",
+			"tileName":			"Contracted Hours"
+		},
+		{
+			"tileID":			4,
+			"tileKey":			4,
+			"isPinned":			false,
+			"tileSize":			"1x1y",
+			"tileClass":		"employee-holiday-groups",
+			"isSelectable":		true,
+			"tileIcon":			"fa-columns",
+			"tileIconSize":		"fa-3x",
+			"tileName":			"Employee Holiday Groups"
+		},
+		{
+			"tileID":			5,
+			"tileKey":			5,
+			"isPinned":			false,
+			"tileSize":			"1x1y",
+			"tileClass":		"relief-shifts",
+			"isSelectable":		true,
+			"tileIcon":			"fa-columns",
+			"tileIconSize":		"fa-3x",
+			"tileName":			"Relief Shifts"
+		},
+		{
+			"tileID":			6,
+			"tileKey":			6,
+			"isPinned":			false,
+			"tileSize":			"1x1y",
+			"tileClass":		"shortfalls",
+			"isSelectable":		true,
+			"tileIcon":			"fa-columns",
+			"tileIconSize":		"fa-3x",
+			"tileName":			"Shortfalls"
+		},
+		{
+			"tileID":			7,
+			"tileKey":			7,
+			"isPinned":			false,
+			"tileSize":			"1x1y",
+			"tileClass":		"skills",
+			"isSelectable":		true,
+			"tileIcon":			"fa-columns",
+			"tileIconSize":		"fa-3x",
+			"tileName":			"Skills"
+		},
+		{
+			"tileID":			8,
+			"tileKey":			8,
+			"isPinned":			false,
+			"tileSize":			"1x1y",
+			"tileClass":		"staff-clockings",
+			"isSelectable":		true,
+			"tileIcon":			"fa-columns",
+			"tileIconSize":		"fa-3x",
+			"tileName":			"Staff Clockings"
+		},
+		{
+			"tileID":			9,
+			"tileKey":			9,
+			"isPinned":			false,
+			"tileSize":			"1x1y",
+			"tileClass":		"staff-shortfalls",
+			"isSelectable":		true,
+			"tileIcon":			"fa-columns",
+			"tileIconSize":		"fa-3x",
+			"tileName":			"Staff Shortfalls"
+		},
+		{
+			"tileID":			10,
+			"tileKey":			10,
+			"isPinned":			false,
+			"tileSize":			"1x1y",
+			"tileClass":		"yearly-planner",
+			"isSelectable":		true,
+			"tileIcon":			"fa-columns",
+			"tileIconSize":		"fa-3x",
+			"tileName":			"Yearly Planner"
+		}
+	];
+	console.log(hidden);
 
 	//$homeGrid.masonry('prepended', <div></div>');
 	//$homeGrid.masonry('appended', <div></div>');
 	//$homeGrid.masonry('layout');
 	//$homegrid.masonry('remove', this);
 
-	vm.pinTile = function(rowID, $event){
-		vm.homeTiles[rowID].isPinned = true;
-		vm.homeTiles[rowID].tileKey = rowID;
-		var tile = vm.homeTiles[rowID];
+	vm.pinTile = function(rowID, type){
+		if(type == 'grid'){
+			vm.homeTiles[rowID].isPinned = true;
+			vm.homeTiles[rowID].tileKey = rowID;
+			vm.homeTiles[rowID].tileType = 'grid';
+			var tile = vm.homeTiles[rowID];
+		}else if(type == 'report'){
+			vm.reportTiles[rowID].isPinned = true;
+			vm.reportTiles[rowID].tileKey = rowID;
+			vm.reportTiles[rowID].tileType = 'report';
+			var tile = vm.reportTiles[rowID];
+		}
 		vm.pinnedTiles.push(tile);
 		$("." + tile.tileClass).removeClass("grid-item");
 		$timeout(function(){
 			$pinnedGrid.masonry("appended", $("." + tile.tileClass + ".pinned")).masonry("layout");
 			$homeGrid.masonry("layout");
+			$reportGrid.masonry("layout");
 		}, 0);
 	}
 
@@ -428,36 +565,60 @@ module.exports = function ($scope, $location, $rootScope, common, datacontext, $
 			case "pinned":
 				if(vm.showPinned == true){
 					$(".js-grid-pinned").slideUp();
+					hidden.pinned = true;
 					vm.showPinned = false;
 				}else{
 					$(".js-grid-pinned").slideDown();
+					hidden.pinned = false;
 					vm.showPinned = true;
+					$pinnedGrid.masonry("layout");
 				}
-				break;
+			break;
 			case "tiles":
 				if(vm.showTiles == true){
-					$(".js-grid-tiles").slideUp();
+					$(".js-grid").slideUp();
+					hidden.tiles = true;
 					vm.showTiles = false;
 				}else{
-					$(".js-grid-tiles").slideDown();
+					$(".js-grid").slideDown();
+					hidden.tiles = false;
 					vm.showTiles = true;
+					$homeGrid.masonry("layout");
 				}
-				break;
+			break;
+			case "reports":
+				if(vm.showReports == true){
+					$(".js-grid-reports").slideUp();
+					hidden.reports = true;
+					vm.showReports = false;
+				}else{
+					$(".js-grid-reports").slideDown();
+					hidden.reports = false;
+					vm.showReports = true;
+					$reportGrid.masonry("layout");
+				}
+			break;
 		}
+		localstorage.saveData("hidden", hidden, "JSON");
 	}
 
-	vm.unpinTile = function(rowID, $event){
+	vm.unpinTile = function(rowID, type){
 		var tile = vm.pinnedTiles[rowID];
-		vm.homeTiles[tile.tileKey].isPinned = false;
+		if(type == 'grid'){
+			vm.homeTiles[tile.tileKey].isPinned = false;
+		}else if(type == 'report'){
+			vm.reportTiles[tile.tileKey].isPinned = false;
+		}
 		$("." + tile.tileClass).addClass("grid-item");
 		vm.pinnedTiles.splice(rowID, 1);
 		$timeout(function(){
 			$pinnedGrid.masonry("remove", $("." + tile.tileClass + ".pinned")).masonry("layout");
 			$homeGrid.masonry("layout");
+			$reportGrid.masonry("layout");
 		}, 0);
 	}
 	
-	$(".grid, .grid-pinned").hide();
+	$(".js-grid, .js-grid-pinned, .js-grid-reports").hide();
     activate();
 
     function activate() {
@@ -465,15 +626,36 @@ module.exports = function ($scope, $location, $rootScope, common, datacontext, $
         	var gridOptions = {
 				itemSelector: '.grid-item',
 				gutter: 10,
-				//stagger: 20,
 				columnWidth: 125,
 				fitWidth: true
 			};
 
 			$timeout(function(){
-				$pinnedGrid = $(".grid-pinned").masonry(gridOptions);
-				$homeGrid = $(".grid").masonry(gridOptions);
-				$(".grid, .grid-pinned").show();
+				$pinnedGrid = $(".js-grid-pinned").masonry(gridOptions);
+				$homeGrid = $(".js-grid").masonry(gridOptions);
+				$reportGrid = $(".js-grid-reports").masonry(gridOptions);
+				//	If meant to show the pinned grid
+				if(hidden.hasOwnProperty("pinned") & hidden.pinned !== true){
+					vm.showPinned = true;
+					$(".js-grid-pinned").show();
+				}else{
+					vm.showPinned = false;
+				}
+				//	If meant to show the main grid
+				if(hidden.hasOwnProperty("tiles") & hidden.tiles !== true){
+					vm.showTiles = true;
+					$(".js-grid").show();
+				}else{
+					vm.showTiles = false;
+				}
+				//	If meant to show the reports grid
+				if(hidden.hasOwnProperty("reports") & hidden.reports !== true){
+					vm.showReports = true;
+					$(".js-grid-reports").show();
+				}else{
+					vm.showReports = false;
+				}
+				//$(".js-grid, .js-grid-pinned, .js-grid-reports").show();
 			}, 0);
         });
     }

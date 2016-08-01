@@ -5,6 +5,7 @@ module.exports = angular.module('app', [
     require('./js/common/common').name,
     require('./core/interceptor').name,
     require('./js/services/datacontext').name,
+	require('./js/services/localstorage.js').name,
     require('./js/directives/sidebar/sidebar').name,
     require('./js/directives/base/base').name
 ])

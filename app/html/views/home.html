@@ -1,5 +1,5 @@
 <div class="row">
-	<div ng-if="vm.pinnedTiles.length > 0" class="col-md-10 col-md-offset-1">
+	<div ng-if="vm.pinnedTiles.length > 0" class="col-md-10 col-md-offset-1 js-grid-pinned-heading">
 		<h1 class="display-2 grid-header">
 			Pinned Tiles
 			<button class="btn" style="float: right;" ng-click="vm.toggleRow('pinned')">
@@ -10,8 +10,8 @@
 	</div>
 </div>
 <div class="row">
-	<div class="col-md-10 col-md-offset-1 js-grid-pinned">
-		<div class="grid-pinned" style="margin: 0 auto;">
+	<div class="col-md-10 col-md-offset-1">
+		<div class="js-grid-pinned" style="margin: 0 auto;">
 			<div ng-repeat="(rowID, tile) in vm.pinnedTiles" class="grid-item grid-item-{{tile.tileSize}} pinned {{rowID}}" ng-class="[tile.tileClass, {'grid-item-selectable': tile.isSelectable}]">
 				<div ng-if="tile.tileSize == '2x2y'" class="inner-grid">
 					<div class="grid-item-2x2y-icon">
@@ -54,7 +54,7 @@
 					<img ng-if="tile.tileImage" ng-src="{{tile.tileImage}}" height="70px" />
 					<div class="grid-title">{{tile.tileName}}</div>
 				</div>
-				<div class="grid-pin unpin fa-stack fa-lg" ng-click="vm.unpinTile(rowID, $event)">
+				<div class="grid-pin unpin fa-stack fa-lg" ng-click="vm.unpinTile(rowID, tile.tileType)">
 					<i class="fa fa-thumb-tack fa-stack-1x"></i>
 					<i class="fa fa-ban fa-stack-2x text-danger"></i>
 				</div>
@@ -63,7 +63,7 @@
 	</div>
 </div>
 <div class="row">
-	<div class="col-md-10 col-md-offset-1">
+	<div class="col-md-10 col-md-offset-1 js-grid-tiles-heading">
 		<h1 class="display-2 grid-header">
 			Self-Service
 			<button class="btn" style="float: right;" ng-click="vm.toggleRow('tiles')">
@@ -75,7 +75,7 @@
 </div>
 <div class="row">
 	<div class="col-md-10 col-md-offset-1 js-grid-tiles">
-		<div class="grid" style="margin: 0 auto;">
+		<div class="js-grid" style="margin: 0 auto;">
 			<div ng-repeat="(rowID, tile) in vm.homeTiles" class="grid-item grid-item-{{tile.tileSize}}" ng-hide="tile.isPinned" ng-class="[tile.tileClass, {'grid-item-selectable': tile.isSelectable}]">
 				<div ng-if="tile.tileSize == '2x2y'" class="inner-grid">
 					<div class="grid-item-2x2y-icon">
@@ -118,7 +118,33 @@
 					<img ng-if="tile.tileImage" ng-src="{{tile.tileImage}}" height="70px" />
 					<div class="grid-title">{{tile.tileName}}</div>
 				</div>
-				<div class="grid-pin pin" ng-click="vm.pinTile(rowID, $event)">
+				<div class="grid-pin pin" ng-click="vm.pinTile(rowID, 'grid')">
+					<i class="fa fa-thumb-tack fa-fw fa-lg"></i>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-10 col-md-offset-1 js-grid-reports-heading">
+		<h1 class="display-2 grid-header">
+			Reports
+			<button class="btn" style="float: right;" ng-click="vm.toggleRow('reports')">
+				<i ng-show="vm.showReports" class="fa fa-arrow-down"></i>
+				<i ng-hide="vm.showReports" class="fa fa-arrow-left"></i>
+			</button>
+		</h1>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-10 col-md-offset-1">
+		<div class="js-grid-reports" style="margin: 0 auto;">
+			<div ng-repeat="(rowID, tile) in vm.reportTiles" class="grid-item grid-item-selectable {{tile.tileClass}}" ng-hide="tile.isPinned">
+				<div class="grid-icon">
+					<i class="fa fa-columns fa-3x"></i>
+					<div class="grid-title">{{tile.tileName}}</div>
+				</div>
+				<div class="grid-pin pin" ng-click="vm.pinTile(rowID, 'report')">
 					<i class="fa fa-thumb-tack fa-fw fa-lg"></i>
 				</div>
 			</div>
