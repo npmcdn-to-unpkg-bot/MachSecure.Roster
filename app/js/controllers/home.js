@@ -5,7 +5,7 @@ module.exports = function ($scope, $location, $rootScope, common, datacontext, $
 	var $pinnedGrid;
 	var $homeGrid;
 	var $reportGrid;
-	var pinned = localstorage.getData("pinned", {pinnedTiles: [], pinnedReports: []}, "JSON");
+	var pinned = localstorage.getData("pinned", {pinnedTiles: {}, pinnedReports: {}}, "JSON");
 	var hidden = localstorage.getData("hidden", {pinned: false, tiles: false, reports: false}, "JSON")
 	vm.myRosterLogo = require('../../img/myRoster.png');
 	vm.pinnedTiles = [];
@@ -14,6 +14,7 @@ module.exports = function ($scope, $location, $rootScope, common, datacontext, $
 	vm.showReports = true;
 	vm.homeTiles;
 	vm.reportTiles;
+	console.log(pinned);
 
 	//$homeGrid.masonry('prepended', <div></div>');
 	//$homeGrid.masonry('appended', <div></div>');
@@ -91,10 +92,10 @@ module.exports = function ($scope, $location, $rootScope, common, datacontext, $
 		var tile = vm.pinnedTiles[rowID];
 		if(type == 'grid'){
 			vm.homeTiles[tile.tileKey].isPinned = false;
-			pinned.pinnedTiles.splice(tile.tileID, 1);
+			delete pinned.pinnedTiles[tile.tileID];
 		}else if(type == 'report'){
 			vm.reportTiles[tile.tileKey].isPinned = false;
-			pinned.pinnedReports.splice(tile.tileID, 1);
+			delete pinned.pinnedReports[tile.tileID];
 		}
 		localstorage.saveData("pinned", pinned, "JSON");
 		$("." + tile.tileClass).addClass("grid-item");
