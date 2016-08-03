@@ -7,6 +7,7 @@ module.exports = function ($scope, $location, $rootScope, common, datacontext, $
 	var $reportGrid;
 	var pinned = localstorage.getData("pinned", {pinnedTiles: {}, pinnedReports: {}}, "JSON");
 	var hidden = localstorage.getData("hidden", {pinned: false, tiles: false, reports: false}, "JSON")
+	var userDetails;
 	vm.myRosterLogo = require('../../img/myRoster.png');
 	vm.pinnedTiles = [];
 	vm.showPinned = true;
@@ -14,12 +15,21 @@ module.exports = function ($scope, $location, $rootScope, common, datacontext, $
 	vm.showReports = true;
 	vm.homeTiles;
 	vm.reportTiles;
-	console.log(pinned);
 
 	//$homeGrid.masonry('prepended', <div></div>');
 	//$homeGrid.masonry('appended', <div></div>');
 	//$homeGrid.masonry('layout');
 	//$homegrid.masonry('remove', this);
+
+	$scope.$on("roleChanged", function(event, currentUser, details){
+		userDetails = details;
+		console.log(currentUser);
+		console.log(details);
+		//	Load tiles for this usertype
+		datacontext.getTiles(currentUser, details.roleID).then(function(tiles){
+			console.log(tiles);
+		});
+	});
 
 	vm.pinTile = function(rowID, type){
 		var tile;
@@ -108,6 +118,7 @@ module.exports = function ($scope, $location, $rootScope, common, datacontext, $
 	}
 	
 	$(".js-grid, .js-grid-pinned, .js-grid-reports").hide();
+	
 	getTiles();
 	getReports();
     activate();

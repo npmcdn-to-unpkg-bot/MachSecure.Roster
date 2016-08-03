@@ -5,6 +5,7 @@ class NavCtrl {
 
 		var vm = this;
 
+		$rootScope.currentRole;
 		vm.user = {};
 		vm.login = login;
 		vm.logout = logout;
@@ -76,6 +77,7 @@ class NavCtrl {
 			vm.currentRole = userRoleID;
 			vm.activeRole = vm.Roles[vm.UserRoles[userRoleID].roleID].roleName;
 			vm.activeLocation = vm.Locations[vm.UserRoles[userRoleID].locationID].locationName;
+			$rootScope.$broadcast("roleChanged", _currentUser, vm.Roles[vm.UserRoles[userRoleID].roleID]);
 		};
 
 		activate();

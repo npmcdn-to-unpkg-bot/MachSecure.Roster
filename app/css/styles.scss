@@ -10,6 +10,10 @@ body{
   background: rgb(226, 232, 233);
 }
 
+base {
+	display: block;
+}
+
 .grid-header {
 	border-bottom-color: black;
 	border-bottom-width: 1px;
