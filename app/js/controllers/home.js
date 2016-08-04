@@ -8,6 +8,9 @@ module.exports = function ($scope, $location, $rootScope, common, datacontext, $
 	var pinned = localstorage.getData("pinned", {pinnedTiles: {}, pinnedReports: {}}, "JSON");
 	var hidden = localstorage.getData("hidden", {pinned: false, tiles: false, reports: false}, "JSON")
 	var userDetails;
+	var slidePinned = true;
+	var slideTiles = true;
+	var slideReports = true;
 	vm.myRosterLogo = require('../../img/myRoster.png');
 	vm.pinnedTiles = [];
 	vm.showPinned = true;
@@ -59,39 +62,48 @@ module.exports = function ($scope, $location, $rootScope, common, datacontext, $
 	vm.toggleRow = function(rowClass){
 		switch(rowClass){
 			case "pinned":
-				if(vm.showPinned == true){
-					$(".js-grid-pinned").slideUp();
-					hidden.pinned = true;
-					vm.showPinned = false;
-				}else{
-					$(".js-grid-pinned").slideDown();
-					hidden.pinned = false;
-					vm.showPinned = true;
-					$pinnedGrid.masonry("layout");
+				if(slidePinned){
+					slidePinned = false;
+					if(vm.showPinned == true){
+						$(".js-grid-pinned").slideUp(400, function(){slidePinned = true;});
+						hidden.pinned = true;
+						vm.showPinned = false;
+					}else{
+						$(".js-grid-pinned").slideDown(400, function(){slidePinned = true;});
+						hidden.pinned = false;
+						vm.showPinned = true;
+						$pinnedGrid.masonry("layout");
+					}
 				}
 			break;
 			case "tiles":
-				if(vm.showTiles == true){
-					$(".js-grid").slideUp();
-					hidden.tiles = true;
-					vm.showTiles = false;
-				}else{
-					$(".js-grid").slideDown();
-					hidden.tiles = false;
-					vm.showTiles = true;
-					$homeGrid.masonry("layout");
+				if(slideTiles){
+					slideTiles = false;
+					if(vm.showTiles == true){
+						$(".js-grid").slideUp(400, function(){slideTiles = true;});
+						hidden.tiles = true;
+						vm.showTiles = false;
+					}else{
+						$(".js-grid").slideDown(400, function(){slideTiles = true;});
+						hidden.tiles = false;
+						vm.showTiles = true;
+						$homeGrid.masonry("layout");
+					}
 				}
 			break;
 			case "reports":
-				if(vm.showReports == true){
-					$(".js-grid-reports").slideUp();
-					hidden.reports = true;
-					vm.showReports = false;
-				}else{
-					$(".js-grid-reports").slideDown();
-					hidden.reports = false;
-					vm.showReports = true;
-					$reportGrid.masonry("layout");
+				if(slideReports){
+					slideReports = false;
+					if(vm.showReports == true){
+						$(".js-grid-reports").slideUp(400, function(){slideReports = true;});
+						hidden.reports = true;
+						vm.showReports = false;
+					}else{
+						$(".js-grid-reports").slideDown(400, function(){slideReports = true;});
+						hidden.reports = false;
+						vm.showReports = true;
+						$reportGrid.masonry("layout");
+					}
 				}
 			break;
 		}
@@ -118,7 +130,7 @@ module.exports = function ($scope, $location, $rootScope, common, datacontext, $
 	}
 	
 	$(".js-grid, .js-grid-pinned, .js-grid-reports").hide();
-	
+
 	getTiles();
 	getReports();
     activate();
