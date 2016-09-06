@@ -77,10 +77,15 @@ base {
 	margin: 10px;
 }
 
+.grid-detail::first-letter {
+	text-transform: uppercase;
+}
+
 .grid-detail > span {
 	display: block;
 	float: right;
 	margin-left: 10px;
+	font-size: 15px;
 }
 
 .grid-icon {
@@ -100,11 +105,11 @@ base {
 	margin-left: 10%;
 }
 //	Width and Height for grid items are worked out by (125 x n) + 10(n - 1), n being the size increment
-.grid-item-2x {
+.grid-item-2x1y {
 	width: 260px;
 }
 
-.grid-item-2x-icon {
+.grid-item-2x1y-icon {
 	width: 120px;
 	padding-left: 10px;
 	padding-right: 10px;
@@ -112,24 +117,24 @@ base {
 	float: left;
 }
 
-.grid-item-2x-details {
+.grid-item-2x1y-details {
 	height: 100%;
 	display: flex;
 	justify-content: center;
 	flex-direction: column;
 }
 
-.grid-item-2x-details > h4 {
+.grid-item-2x1y-details > h4 {
 	margin-top: 0;
 	margin-bottom: 0;
 }
 
-.grid-item-2x-details > p {
+.grid-item-2x1y-details > p {
 	margin-top: 0;
 	margin-bottom: 0;
 }
 
-.grid-item-2y {
+.grid-item-2y1y {
 	height: 260px;
 }
 

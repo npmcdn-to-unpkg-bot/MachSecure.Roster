@@ -11,8 +11,22 @@ function datacontext($http){
 		return $http.get(url + 'api/userLocations/' + userID).then(_onSuccess);
 	}
 
-	function getTiles(userID, roleID){
-		return $http.get(url + 'api/userTiles/' + userID + '/' + roleID).then(_onSuccess);
+	function getTiles(userID, contactRoleID){
+		return $http.get(url + 'api/userTiles/' + userID + '/' + contactRoleID).then(_onSuccess);
+	}
+
+	function getTileDetails(tile, userID, contactRoleID){
+		return $http.post(
+			'api/userTiles/' + tile,
+			{
+				userID: userID,
+				roleID: contactRoleID
+			}
+		);
+	}
+
+	function getClockingsTile(userID, contactRoleID){
+		return $http.get(url + 'api/userTiles/clockings/' + userID + '/' + contactRoleID).then(_onSuccess);
 	}
 
     function userLogin(user){
@@ -35,6 +49,8 @@ function datacontext($http){
     	test: test,
     	getLocations: getLocations,
 		getTiles: getTiles,
+		getTileDetails: getTileDetails,
+		getClockingsTile: getClockingsTile,
         getUser: getUser,
         userLogin: userLogin,
         logout: logout

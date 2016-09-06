@@ -3,19 +3,23 @@ module.exports = function ($scope, $location, $rootScope, common, datacontext, $
     var log = common.logger;
     var vm = this;
 	var $pinnedGrid;
+	var $adminGrid;
 	var $homeGrid;
 	var $reportGrid;
 	var pinned = localstorage.getData("pinned", {pinnedTiles: {}, pinnedReports: {}}, "JSON");
 	var hidden = localstorage.getData("hidden", {pinned: false, tiles: false, reports: false}, "JSON")
 	var userDetails;
 	var slidePinned = true;
+	var slideAdmin = true;
 	var slideTiles = true;
 	var slideReports = true;
 	vm.myRosterLogo = require('../../img/myRoster.png');
 	vm.pinnedTiles = [];
 	vm.showPinned = true;
+	vm.showAdmin = true;
 	vm.showTiles = true;
 	vm.showReports = true;
+	vm.adminTiles;
 	vm.homeTiles;
 	vm.reportTiles;
 
@@ -26,12 +30,47 @@ module.exports = function ($scope, $location, $rootScope, common, datacontext, $
 
 	$scope.$on("roleChanged", function(event, currentUser, details){
 		userDetails = details;
-		console.log(currentUser);
-		console.log(details);
+		//console.log(userDetails);
 		//	Load tiles for this usertype
-		datacontext.getTiles(currentUser, details.roleID).then(function(tiles){
-			console.log(tiles);
+		$(".js-grid-pinned, .js-grid-admin, .js-grid .js-grid-reports").hide();
+		datacontext.getTiles(currentUser, details.contactRoleID).then(function(tiles){
+			//console.log(tiles);
+			vm.adminTiles = tiles.adminTiles;
+			vm.homeTiles = tiles.serviceTiles;
+			$timeout(function(){
+				$adminGrid.masonry("reloadItems");
+				$adminGrid.masonry("layout");
+				$homeGrid.masonry("reloadItems");
+				$homeGrid.masonry("layout");
+				$(".my-roster-image").css("background-image", "url('../../img/myRoster.png')");
+				//	If there is a clockings tile, get the details of it
+				if(tiles.adminTiles.hasOwnProperty("clockings")){
+					adminTileDetails("clockings", currentUser, details);
+				}
+				//	If shift swap requests tile
+				if(tiles.adminTiles.hasOwnProperty("staff-shift-swap-requests")){
+					adminTileDetails("staff-shift-swap-requests", currentUser, details);
+				}
+				//	If unrecognised messages tile
+				if(tiles.adminTiles.hasOwnProperty("unrecognised-messages")){
+					adminTileDetails("unrecognised-messages", currentUser, details);
+				}
+			}, 0);
+
+			//	Loop through tiles, hiding pinned ones.
+			/*$.each(vm.homeTiles, function(rowID, tile){
+				//	If pinned, pin
+				if(tile.tileID in pinned.pinnedTiles){
+					vm.homeTiles[rowID].isPinned = true;
+					vm.homeTiles[rowID].tileKey = rowID;
+					vm.homeTiles[rowID].tileType = 'grid';
+					tile = vm.homeTiles[rowID];
+					vm.pinnedTiles.push(tile);
+					$("." + tile.tileClass).removeClass("grid-item");
+				}
+			});*/
 		});
+		$(".js-grid-pinned, .js-grid-admin, .js-grid .js-grid-reports").show();
 	});
 
 	vm.pinTile = function(rowID, type){
@@ -76,6 +115,20 @@ module.exports = function ($scope, $location, $rootScope, common, datacontext, $
 					}
 				}
 			break;
+			case "admin":
+				if(slideAdmin){
+					slideTiles = false;
+					if(vm.showAdmin == true){
+						$(".js-grid-admin").slideUp(400, function(){slideAdmin = true;});
+						hidden.admin = true;
+						vm.showAdmin = false;
+					}else{
+						$(".js-grid-admin").slideDown(400, function(){slideAdmin = true;});
+						hidden.admin = false;
+						vm.showAdmin = true;
+						$adminGrid.masonry("layout");
+					}
+				}
 			case "tiles":
 				if(slideTiles){
 					slideTiles = false;
@@ -128,12 +181,16 @@ module.exports = function ($scope, $location, $rootScope, common, datacontext, $
 			$reportGrid.masonry("layout");
 		}, 0);
 	}
-	
-	$(".js-grid, .js-grid-pinned, .js-grid-reports").hide();
 
-	getTiles();
-	getReports();
+	//getTiles();
+	//getReports();
     activate();
+
+	function adminTileDetails(tile, currentUser, details){
+		datacontext.getTileDetails(tile, currentUser, details.contactRoleID).then(function(result){
+			vm.adminTiles[tile].tileDetails = result.data.results;
+		});
+	}
 
 	function getTiles(){
 		//	Eventually got from DB
@@ -697,30 +754,9 @@ module.exports = function ($scope, $location, $rootScope, common, datacontext, $
 
 			$timeout(function(){
 				$pinnedGrid = $(".js-grid-pinned").masonry(gridOptions);
+				$adminGrid = $(".js-grid-admin").masonry(gridOptions);
 				$homeGrid = $(".js-grid").masonry(gridOptions);
 				$reportGrid = $(".js-grid-reports").masonry(gridOptions);
-				//	If meant to show the pinned grid
-				if(hidden.hasOwnProperty("pinned") & hidden.pinned !== true){
-					vm.showPinned = true;
-					$(".js-grid-pinned").show();
-				}else{
-					vm.showPinned = false;
-				}
-				//	If meant to show the main grid
-				if(hidden.hasOwnProperty("tiles") & hidden.tiles !== true){
-					vm.showTiles = true;
-					$(".js-grid").show();
-				}else{
-					vm.showTiles = false;
-				}
-				//	If meant to show the reports grid
-				if(hidden.hasOwnProperty("reports") & hidden.reports !== true){
-					vm.showReports = true;
-					$(".js-grid-reports").show();
-				}else{
-					vm.showReports = false;
-				}
-				//$(".js-grid, .js-grid-pinned, .js-grid-reports").show();
 			}, 0);
         });
     }
